@@ -1,7 +1,15 @@
 <form class="rounded-xl overflow-hidden bg-white">
 	<div class="flex gap-2 items-center p-4">
 		<img class="w-5" src="images/icon-new-task.svg" alt=""/>
-		<h1 class="font-semibold text-lg">Criar/Editar Tarefa</h1>
+		<h1 class="font-semibold text-lg">
+			Criar/Editar tarefa
+			<!-- {{ _data.mode === 'create' ? 'Criar' : 'Editar'}} Tarefa -->
+		</h1>
+		<!-- @if(_data.mode === 'create'){
+			<h1 class="font-semibold text-lg">Criar Tarefa</h1>
+		}@else{
+			<h1 class="font-semibold text-lg">Editar Tarefa</h1>
+		} -->
 		<img class="ml-auto cursor-pointer w-5" src="images/icon-close.svg" alt=""/>
 	</div>
 
@@ -20,6 +28,9 @@
 
 	<div class="p-4 flex justify-end gap-4">
 		<button class="py-3 px-4 bg-[#f0f0f0] hover:bg-[#e0e0e0] rounded-xl text-sm font-semibold cursor-pointer active:translate-y-1 duration-300 ease-in-out" type="button">Cancelar</button>
-		<button class="py-3 px-4 bg-[#2a89ef] hover:bg-[#1e6fdb] rounded-xl text-sm font-semibold cursor-pointer active:translate-y-1 duration-300 ease-in-out shadow-md shadow-blue-500 text-white" type="submit">Criar uma tarefa</button>
+		<button class="py-3 px-4 bg-[#2a89ef] hover:bg-[#1e6fdb] rounded-xl text-sm font-semibold cursor-pointer active:translate-y-1 duration-300 ease-in-out shadow-md shadow-blue-500 text-white" type="submit">
+			<!-- {{ _data.mode === 'create' ? 'Criar uma tarefa' : 'Salvar Alterações'}} -->
+			  Criar/Salvar Tarefa
+		</button>
 	</div>
 </form>
