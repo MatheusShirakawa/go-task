@@ -12,7 +12,7 @@
 @if(!noTasksCreated) {
 	<div class="flex flex-row gap-3 mt-3">
 		<div
-			id="to-do-column"
+			id="todo-column"
 			cdkDropList
 			#todoListCdkDropList="cdkDropList"
 			[cdkDropListData]="todoTasks"
@@ -26,7 +26,11 @@
 			</div>
 			<div class="content flex flex-col gap-4">
 				@for(todoTask of todoTasks; track todoTask.id){
-					<app-task-card cdkDrag [cdkDragData]="todoTask" />
+					<app-task-card
+						[task]="todoTask"
+						cdkDrag
+						[cdkDragData]="todoTask"
+					/>
 				}
 			</div>
 		</div>
@@ -45,7 +49,11 @@
 			</div>
 			<div class="content">
 				@for(doingTask of doingTasks; track doingTask.id){
-					<app-task-card cdkDrag [cdkDragData]="doingTask" />
+					<app-task-card
+						[task]="doingTask"
+						cdkDrag
+						[cdkDragData]="doingTask"
+					/>
 				}
 			</div>
 		</div>
@@ -62,7 +70,11 @@
 			</div>
 			<div class="content">
 				@for(doneTask of doneTasks; track doneTask.id){
-					<app-task-card cdkDrag [cdkDragData]="doneTask" />
+					<app-task-card
+						[task]="doneTask"
+						cdkDrag
+						[cdkDragData]="doneTask"
+					/>
 				}
 			</div>
 		</div>

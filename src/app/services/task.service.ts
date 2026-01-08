@@ -5,6 +5,7 @@ import { TaskStatusEnum } from "../enums/task-status.enum";
 import { generateUniqueIdWithTimestamp } from "../utils/generate-unique-id-with-timestamp";
 import { ITaskFormControls } from "../interfaces/task-form-controls.interface";
 import { TaskStatus } from "../types/task-status";
+import { IComment } from "../interfaces/comment.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,16 @@ export class TaskService{
 		.asObservable()
 		.pipe(map((tasks) => structuredClone(tasks)));
 
+
+	private getTaskListByStatus(taskStatus: TaskStatus){
+		const taskListObj = {
+			[TaskStatusEnum.TODO]: this.todoTasks$,
+			[TaskStatusEnum.DOING]: this.doingTasks$,
+			[TaskStatusEnum.DONE]: this.doneTasks$
+		}
+		return taskListObj[taskStatus];
+	}
+
 	addTask(taskInfos: ITaskFormControls){
 		const newTask: ITask = {
 			id: generateUniqueIdWithTimestamp(),
@@ -39,6 +50,38 @@ export class TaskService{
 
 		const currentTodoTasks = this.todoTasks$.value;
 		this.todoTasks$.next([...currentTodoTasks, newTask]);
+	}
+
+	updateTaskNameAndDescription(taskId: string, taskCurrentStatus:TaskStatus, newTaskName: string, newTaskDescription: string){
+		const currentTaskList = this.getTaskListByStatus(taskCurrentStatus);
+		const currentTaskIndex = currentTaskList.value.findIndex((task) => task.id === taskId);
+
+
+		if(currentTaskIndex > -1){
+			const updatedTaskList = [...currentTaskList.value]
+
+			updatedTaskList[currentTaskIndex] = {
+				...updatedTaskList[currentTaskIndex],
+				name: newTaskName,
+				description: newTaskDescription
+			}
+			currentTaskList.next(updatedTaskList);
+		}
+	}
+
+	updateTaskComments(taskId: string, taskCurrentStatus: TaskStatus, newTaskComments: IComment[]){
+		const currentTaskList = this.getTaskListByStatus(taskCurrentStatus);
+		const currentTaskIndex = currentTaskList.value.findIndex((task) => task.id === taskId);
+
+		if(currentTaskIndex > -1){
+			const updatedTaskList = [...currentTaskList.value]
+
+			updatedTaskList[currentTaskIndex] = {
+				...updatedTaskList[currentTaskIndex],
+				comments: newTaskComments
+			}
+			currentTaskList.next(updatedTaskList);
+		}
 	}
 
 	updateTaskStatus(taskId: string, taskCurrentStatus: TaskStatus, textNextStatus: TaskStatus){
@@ -57,15 +100,6 @@ export class TaskService{
 			//adicionando a tarefa na nova lista
 			nextTaskList.next([...nextTaskList.value, {...currentTask}]);
 		}
-	}
-
-	private getTaskListByStatus(taskStatus: TaskStatus){
-		const taskListObj = {
-			[TaskStatusEnum.TODO]: this.todoTasks$,
-			[TaskStatusEnum.DOING]: this.doingTasks$,
-			[TaskStatusEnum.DONE]: this.doneTasks$
-		}
-		return taskListObj[taskStatus];
 	}
 
 	loadListToDoTasks(){
