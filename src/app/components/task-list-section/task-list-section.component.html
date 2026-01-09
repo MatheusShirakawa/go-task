@@ -1,13 +1,7 @@
 @let todoTasks = (_taskService.todoTasks | async) ?? [];
 @let doingTasks = (_taskService.doingTasks | async) ?? [];
 @let doneTasks = (_taskService.doneTasks | async) ?? [];
-
 @let noTasksCreated = (todoTasks.length === 0) && (doingTasks.length === 0) && (doneTasks.length === 0);
-
-<p>todo : {{ todoTasks | json }}</p>
-<p>doing : {{ doingTasks | json }}</p>
-<p>done : {{ doneTasks | json }}</p>
-
 
 @if(!noTasksCreated) {
 	<div class="flex flex-row gap-3 mt-3">

@@ -105,4 +105,10 @@ export class TaskService{
 	loadListToDoTasks(){
 		console.log(this.todoTasks$.value)
 	}
+
+	deleteTask(taskId: string, taskCurrentStatus: TaskStatus){
+		const currentTaskList = this.getTaskListByStatus(taskCurrentStatus);
+		const updatedTaskList = currentTaskList.value.filter((task) => task.id !== taskId);
+		currentTaskList.next(updatedTaskList);
+	}
 }

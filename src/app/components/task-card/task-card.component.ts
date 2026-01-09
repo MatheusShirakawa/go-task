@@ -2,6 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { ModalControllerService } from '../../services/modal-controller.service';
 import { ITask } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
+import { TaskStatus } from '../../types/task-status';
 
 @Component({
   selector: 'app-task-card',
@@ -45,5 +46,9 @@ export class TaskCardComponent {
 				);
 			}
 		})
+	}
+
+	deleteTask(){
+		this._taskService.deleteTask(this.task.id, this.task.status);
 	}
 }
