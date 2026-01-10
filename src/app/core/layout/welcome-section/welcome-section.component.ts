@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { ModalControllerService } from '../../services/modal-controller.service';
-import { generateUniqueIdWithTimestamp } from '../../utils/generate-unique-id-with-timestamp';
 import { TaskService } from '../../services/task.service';
 
 @Component({

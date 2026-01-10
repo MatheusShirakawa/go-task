@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from "./components/header/header.component";
 import { DialogModule } from '@angular/cdk/dialog';
-import { MainContentComponent } from "./components/main-content/main-content.component";
+import { MainContentComponent } from "./features/tasks/components/main-content/main-content.component";
+import { HeaderComponent } from './core/layout/header/header.component';
 // @Injectable({ providedIn: 'platform' })
 
 @Component({
